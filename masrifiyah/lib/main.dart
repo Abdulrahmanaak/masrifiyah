@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'login/routes.dart';
+import 'package:masrifiyah/config/routes.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         textTheme: GoogleFonts.ibmPlexSansArabicTextTheme(),
       ),
       debugShowCheckedModeBanner: false,
-      onGenerateRoute: Routes.generateRoute,
+      routes: routes,
       initialRoute: '/',
     );
   }
