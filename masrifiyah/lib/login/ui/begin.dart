@@ -97,7 +97,7 @@ class BeginScreen extends StatelessWidget {
                     const SizedBox(height: 16),
                     TextButton(
                       onPressed: () {
-                        // Handle support contact action
+                        Navigator.pushNamed(context, '/support');
                       },
                       child: const Text(
                         'تواصل مع الدعم',
