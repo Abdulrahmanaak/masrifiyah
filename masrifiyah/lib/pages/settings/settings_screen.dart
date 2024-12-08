@@ -22,7 +22,6 @@ class SettingsScreen extends StatelessWidget {
             Center(
               child: Image.asset("assets/logo.png"),
             ),
-            const Divider(),
             const SizedBox(height: 20), // Space between the logo and the tabs
             Expanded(
               child: ListView(
