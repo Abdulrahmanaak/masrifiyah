@@ -20,6 +20,12 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: routes,
       initialRoute: '/',
+      // builder: (context, child) {
+      //   return Directionality(
+      //     textDirection: TextDirection.rtl,
+      //     child: child!,
+      //   );
+      // },
     );
   }
 }
