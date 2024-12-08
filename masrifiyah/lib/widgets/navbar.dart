@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:masrifiyah/pages/analysis_screen.dart';
+import 'package:masrifiyah/pages/calculator_screen.dart';
 import 'package:masrifiyah/pages/banks_screen.dart';
 import 'package:masrifiyah/pages/home_screen.dart';
 import 'package:masrifiyah/pages/settings/settings_screen.dart';
@@ -14,10 +14,11 @@ class NavigationBarApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Bottom Navigation',
+      title: 'التنقل السفلي',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        fontFamily: 'Arial', // You can replace it with any preferred font
       ),
       home: const BottomNavBar(),
     );
@@ -38,7 +39,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   final List<Widget> _pages = const [
     HomeScreen(),
     BanksScreen(),
-    AnalysisScreen(),
+    CalculatorScreen(),
     SettingsScreen(),
   ];
 
@@ -55,25 +56,34 @@ class _BottomNavBarState extends State<BottomNavBar> {
         },
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.white,
+        elevation: 8, // Add slight elevation for a clean look
         selectedItemColor: const Color(0xFFE8712B), // Highlight color
         unselectedItemColor: Colors.grey,
         showUnselectedLabels: true,
+        selectedLabelStyle: const TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.bold,
+        ),
+        unselectedLabelStyle: const TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.normal,
+        ),
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'Home',
+            label: 'الرئيسية',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_balance),
-            label: 'Banks',
+            label: 'البنوك',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.bar_chart),
-            label: 'Analysis',
+            icon: Icon(Icons.calculate),
+            label: 'الحاسبة',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
-            label: 'Settings',
+            label: 'الإعدادات',
           ),
         ],
       ),
