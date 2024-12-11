@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class RegistrationScreen extends StatefulWidget {
-  const RegistrationScreen({super.key});
+class SignInScreen extends StatefulWidget {
+  const SignInScreen({super.key});
 
   @override
-  _RegistrationScreenState createState() => _RegistrationScreenState();
+  _SignInScreenState createState() => _SignInScreenState();
 }
 
-class _RegistrationScreenState extends State<RegistrationScreen> {
+class _SignInScreenState extends State<SignInScreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController fullNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();

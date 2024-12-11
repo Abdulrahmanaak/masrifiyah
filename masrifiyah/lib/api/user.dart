@@ -19,13 +19,13 @@ class UserAPI extends BaseAPI {
     return response;
   }
 
-  Future<Response> signin(
+  Future<Response> signIn(
     String username,
     String email,
     String password,
   ) async {
     var body = jsonEncode({
-      'username': username,
+      'name': username,
       'email': email,
       'password': password,
     });
