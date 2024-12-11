@@ -11,10 +11,10 @@ export class SignupController {
     return this.signupService.create(signupData);
   }
 
-  @Get()
-  async findAll(): Promise<Signup[]> {
-    return this.signupService.findAll();
-  }
+  // @Get()
+  // async findAll(): Promise<Signup[]> {
+  //   return this.signupService.findAll();
+  // }
 
   @Get(':email')
   async findOne(@Param('email') email: string): Promise<Signup | null> {
