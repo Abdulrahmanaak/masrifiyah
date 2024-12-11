@@ -16,13 +16,13 @@ class SupportScreen extends StatelessWidget {
         iconTheme: const IconThemeData(color: Colors.black),
       ),
       backgroundColor: Colors.white,
-      body: Center(
+      body: const Center(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: const [
+            children: [
               Text(
                 'للتواصل مع الدعم الفني، يرجى مراسلتنا على البريد الإلكتروني:',
                 textAlign: TextAlign.center,

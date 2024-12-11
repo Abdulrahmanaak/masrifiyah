@@ -7,6 +7,9 @@ class BeginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context); // Get the current theme
+    final textTheme = theme.textTheme; // Access the theme's text styles
+
     return Scaffold(
       body: Stack(
         children: [
@@ -20,7 +23,7 @@ class BeginScreen extends StatelessWidget {
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
               child: Container(
-                color: Colors.black.withOpacity(0),
+                color: Colors.black.withOpacity(0), // Background blur effect
               ),
             ),
           ),
@@ -36,13 +39,14 @@ class BeginScreen extends StatelessWidget {
                 width: 200,
               ),
               const SizedBox(height: 24),
-              const Text(
-                '!انشط القروض، وابدا طريقك نحو المستقبل"',
+              Text(
+                '!انشط القروض، وابدا طريقك نحو المستقبل',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 16,
-                    color: Color(0xFF9B9B9B),
-                    fontWeight: FontWeight.bold),
+                style: textTheme.bodyMedium?.copyWith(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: theme.colorScheme.onSurface, // Adapts to light/dark
+                ),
               ),
               const SizedBox(height: 56),
               Padding(
@@ -54,18 +58,19 @@ class BeginScreen extends StatelessWidget {
                         Navigator.pushNamed(context, '/register');
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFE8712B),
+                        backgroundColor:
+                            theme.colorScheme.primary, // Theme color
                         minimumSize: const Size(double.infinity, 58),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
-                      child: const Text(
+                      child: Text(
                         'إنشاء حساب جديد',
-                        style: TextStyle(
+                        style: textTheme.bodyMedium?.copyWith(
                           fontSize: 16,
-                          color: Colors.white,
                           fontWeight: FontWeight.w600,
+                          color: theme.colorScheme.onPrimary, // Theme color
                         ),
                       ),
                     ),
@@ -75,22 +80,23 @@ class BeginScreen extends StatelessWidget {
                         Navigator.pushNamed(context, '/login');
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
+                        backgroundColor:
+                            theme.colorScheme.surface, // Theme color
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        side: const BorderSide(
-                          color: Color(0xFFCFCFCF),
+                        side: BorderSide(
+                          color: theme.colorScheme.outline, // Theme color
                           width: 1,
                         ),
                         minimumSize: const Size(double.infinity, 58),
                       ),
-                      child: const Text(
+                      child: Text(
                         'تسجيل دخول',
-                        style: TextStyle(
+                        style: textTheme.bodyMedium?.copyWith(
                           fontSize: 16,
-                          color: Color(0xFFE8712B),
                           fontWeight: FontWeight.w600,
+                          color: theme.colorScheme.primary, // Theme color
                         ),
                       ),
                     ),
@@ -99,12 +105,13 @@ class BeginScreen extends StatelessWidget {
                       onPressed: () {
                         Navigator.pushNamed(context, '/support');
                       },
-                      child: const Text(
+                      child: Text(
                         'تواصل مع الدعم',
-                        style: TextStyle(
+                        style: textTheme.bodyMedium?.copyWith(
                           fontSize: 16,
-                          color: Color(0xFF666666),
                           fontWeight: FontWeight.w900,
+                          color:
+                              theme.colorScheme.onSurfaceVariant, // Theme color
                         ),
                       ),
                     ),

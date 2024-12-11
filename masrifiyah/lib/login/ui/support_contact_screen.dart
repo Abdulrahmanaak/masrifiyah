@@ -10,13 +10,13 @@ class SupportContactScreen extends StatelessWidget {
         title: const Text('تواصل مع الدعم'),
         backgroundColor: const Color(0xFFE8712B),
       ),
-      body: Center(
+      body: const Center(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: const [
+            children: [
               Text(
                 'للتواصل مع الدعم الفني، يرجى مراسلتنا على البريد الإلكتروني:',
                 textAlign: TextAlign.center,

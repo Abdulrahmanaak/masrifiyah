@@ -117,7 +117,7 @@ class SettingsScreen extends StatelessWidget {
               Row(
                 textDirection: TextDirection.rtl,
                 children: [
-                  Container(
+                  SizedBox(
                     height: 50,
                     width: 50,
                     child: Icon(icon, color: Colors.black),

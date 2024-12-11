@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:masrifiyah/login/ui/SupportContactScreen.dart';
+import 'package:masrifiyah/login/ui/support_contact_screen.dart';
 import 'package:masrifiyah/login/ui/login.dart';
 import './ui/begin.dart';
 import 'package:masrifiyah/widgets/navbar.dart';
