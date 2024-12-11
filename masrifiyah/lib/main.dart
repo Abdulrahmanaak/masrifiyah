@@ -1,16 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:masrifiyah/config/routes.dart';
 import 'package:google_fonts/google_fonts.dart';
-import './config/constant.dart'; // Import the constants.dart file
+import 'package:masrifiyah/config/routes.dart';
+import './config/constant.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
+class ThemeNotifier with ChangeNotifier {
+  ThemeMode _themeMode = ThemeMode.light;
+
+  ThemeMode get themeMode => _themeMode;
+
+  void setThemeMode(ThemeMode mode) {
+    _themeMode = mode;
+    notifyListeners();
+  }
+}
+
 class MyApp extends StatelessWidget {
+  static final ThemeNotifier themeNotifier = ThemeNotifier();
+
   const MyApp({super.key});
 
-  // Define light and dark themes
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: themeNotifier,
+      builder: (context, _) {
+        return MaterialApp(
+          title: 'Masrifiyah',
+          theme: lightTheme, // Define the light theme
+          darkTheme: darkTheme, // Define the dark theme
+          themeMode: themeNotifier.themeMode, // Set the theme mode dynamically
+          debugShowCheckedModeBanner: false,
+          routes: routes,
+          initialRoute: '/', // Use settings screen as home
+        );
+      },
+    );
+  }
+
   ThemeData get lightTheme => ThemeData(
         brightness: Brightness.light,
         primaryColor: AppColors.primaryColor,
@@ -64,17 +94,4 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.dark,
         ).copyWith(surface: AppColors.darkBackgroundColor),
       );
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Masrifiyah',
-      theme: lightTheme, // Use the defined light theme
-      darkTheme: darkTheme, // Use the defined dark theme
-      themeMode: ThemeMode.system, // Use system theme mode (light/dark)
-      debugShowCheckedModeBanner: false,
-      routes: routes,
-      initialRoute: '/',
-    );
-  }
 }

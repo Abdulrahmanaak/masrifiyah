@@ -42,18 +42,26 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context); // Get the current theme
+    final textTheme = theme.textTheme; // Access theme's text styles
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: theme.colorScheme.surface, // Use theme surface color
         elevation: 0,
-        title: const Text(
+        title: Text(
           "المعلومات الشخصية",
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          style: textTheme.bodyLarge?.copyWith(
+            color: theme.colorScheme.onSurface, // AppBar title color
+            fontWeight: FontWeight.bold,
+          ),
         ),
-        iconTheme: const IconThemeData(color: Colors.black),
+        iconTheme: IconThemeData(
+          color: theme.colorScheme.onSurface, // Back button color
+        ),
       ),
-      backgroundColor: Colors.white, // Set the background color to white
-      body: Padding(
+      backgroundColor: theme.colorScheme.surface, // Use theme background color
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
@@ -61,11 +69,11 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
             Center(
               child: CircleAvatar(
                 radius: 50,
-                backgroundColor: Colors.grey[300],
-                child: const Icon(
-                  Icons.person,
-                  size: 50,
-                  color: Colors.black,
+                backgroundColor: theme
+                    .colorScheme.surfaceContainerHighest, // Avatar background
+                child: const CircleAvatar(
+                  radius: 50,
+                  backgroundImage: AssetImage("assets/profile_picture.png"),
                 ),
               ),
             ),
@@ -74,6 +82,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
               label: "الاسم",
               controller: _nameController,
               icon: Icons.person,
+              theme: theme,
             ),
             const SizedBox(height: 16),
             _buildInputField(
@@ -81,6 +90,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
               controller: _emailController,
               icon: Icons.email,
               keyboardType: TextInputType.emailAddress,
+              theme: theme,
             ),
             const SizedBox(height: 16),
             _buildInputField(
@@ -88,6 +98,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
               controller: _phoneController,
               icon: Icons.phone,
               keyboardType: TextInputType.phone,
+              theme: theme,
             ),
             const SizedBox(height: 16),
             _buildDateField(
@@ -95,8 +106,9 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
               controller: _birthdateController,
               context: context,
               icon: Icons.calendar_today,
+              theme: theme,
             ),
-            const Spacer(),
+            const SizedBox(height: 24),
             Center(
               child: ElevatedButton(
                 onPressed: () {
@@ -105,14 +117,21 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                   print("Email: ${_emailController.text}");
                   print("Phone: ${_phoneController.text}");
                   print("Birthdate: ${_birthdateController.text}");
+                  Navigator.pop(context);
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.black,
-                  padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+                  backgroundColor: theme.colorScheme.primary, // Button color
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 16,
+                    horizontal: 32,
+                  ),
                 ),
-                child: const Text(
+                child: Text(
                   "حفظ",
-                  style: TextStyle(fontSize: 16, color: Colors.white),
+                  style: textTheme.bodyMedium?.copyWith(
+                    fontSize: 16,
+                    color: theme.colorScheme.onPrimary, // Button text color
+                  ),
                 ),
               ),
             )
@@ -125,6 +144,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
   Widget _buildInputField({
     required String label,
     required TextEditingController controller,
+    required ThemeData theme,
     IconData? icon,
     TextInputType keyboardType = TextInputType.text,
   }) {
@@ -133,10 +153,10 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: theme.textTheme.bodyMedium?.copyWith(
             fontSize: 16,
             fontWeight: FontWeight.bold,
-            color: Colors.black,
+            color: theme.colorScheme.onSurface, // Label color
           ),
           textAlign: TextAlign.right,
         ),
@@ -146,20 +166,24 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
           textAlign: TextAlign.right,
           keyboardType: keyboardType,
           decoration: InputDecoration(
-            suffixIcon: Icon(icon, color: Colors.black),
+            suffixIcon:
+                Icon(icon, color: theme.colorScheme.onSurface), // Icon color
             filled: true,
-            fillColor: Colors.white,
+            fillColor: theme.colorScheme.surface, // Input field background
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: Colors.grey),
+              borderSide:
+                  BorderSide(color: theme.colorScheme.outline), // Border color
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: Colors.grey),
+              borderSide:
+                  BorderSide(color: theme.colorScheme.outline), // Border color
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: Colors.black),
+              borderSide: BorderSide(
+                  color: theme.colorScheme.primary), // Focused border color
             ),
           ),
         ),
@@ -171,6 +195,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
     required String label,
     required TextEditingController controller,
     required BuildContext context,
+    required ThemeData theme,
     IconData? icon,
   }) {
     return Column(
@@ -178,10 +203,10 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: theme.textTheme.bodyMedium?.copyWith(
             fontSize: 16,
             fontWeight: FontWeight.bold,
-            color: Colors.black,
+            color: theme.colorScheme.onSurface, // Label color
           ),
           textAlign: TextAlign.right,
         ),
@@ -193,20 +218,24 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
               controller: controller,
               textAlign: TextAlign.right,
               decoration: InputDecoration(
-                suffixIcon: Icon(icon, color: Colors.black),
+                suffixIcon: Icon(icon,
+                    color: theme.colorScheme.onSurface), // Icon color
                 filled: true,
-                fillColor: Colors.white,
+                fillColor: theme.colorScheme.surface, // Input field background
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
-                  borderSide: const BorderSide(color: Colors.grey),
+                  borderSide: BorderSide(
+                      color: theme.colorScheme.outline), // Border color
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
-                  borderSide: const BorderSide(color: Colors.grey),
+                  borderSide: BorderSide(
+                      color: theme.colorScheme.outline), // Border color
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
-                  borderSide: const BorderSide(color: Colors.black),
+                  borderSide: BorderSide(
+                      color: theme.colorScheme.primary), // Focused border color
                 ),
               ),
             ),

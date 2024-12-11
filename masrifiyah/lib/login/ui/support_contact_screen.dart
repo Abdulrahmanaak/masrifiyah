@@ -5,14 +5,25 @@ class SupportContactScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context); // Get the current theme
+    final textTheme = theme.textTheme; // Access theme's text styles
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('تواصل مع الدعم'),
-        backgroundColor: const Color(0xFFE8712B),
+        title: Text(
+          'تواصل مع الدعم',
+          style: textTheme.bodyLarge?.copyWith(
+            color: theme.colorScheme.onPrimary, // AppBar title color
+          ),
+        ),
+        backgroundColor: theme.colorScheme.primary, // Use theme primary color
+        iconTheme: IconThemeData(
+          color: theme.colorScheme.onPrimary, // Back button color
+        ),
       ),
-      body: const Center(
+      body: Center(
         child: Padding(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -20,30 +31,36 @@ class SupportContactScreen extends StatelessWidget {
               Text(
                 'للتواصل مع الدعم الفني، يرجى مراسلتنا على البريد الإلكتروني:',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16, color: Color(0xFF666666)),
-              ),
-              SizedBox(height: 16),
-              Text(
-                'support@example.com',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFFE8712B),
+                style: textTheme.bodyMedium?.copyWith(
+                  fontSize: 16,
+                  color: theme.colorScheme.onSurface, // Text color
                 ),
               ),
-              SizedBox(height: 24),
+              const SizedBox(height: 16),
+              Text(
+                'support@example.com',
+                style: textTheme.bodyLarge?.copyWith(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: theme.colorScheme.primary, // Primary color
+                ),
+              ),
+              const SizedBox(height: 24),
               Text(
                 'أو اتصل بنا على الرقم:',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16, color: Color(0xFF666666)),
+                style: textTheme.bodyMedium?.copyWith(
+                  fontSize: 16,
+                  color: theme.colorScheme.onSurface, // Text color
+                ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Text(
                 '+123-456-7890',
-                style: TextStyle(
+                style: textTheme.bodyLarge?.copyWith(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFFE8712B),
+                  color: theme.colorScheme.primary, // Primary color
                 ),
               ),
             ],

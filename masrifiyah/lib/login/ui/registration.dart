@@ -19,6 +19,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context); // Get the current theme
+    final textTheme = theme.textTheme; // Access theme's text styles
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -31,16 +34,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const SizedBox(height: 100),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
                       'مرحبًا بكم',
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: textTheme.bodyLarge?.copyWith(
                         fontSize: 24,
                         fontWeight: FontWeight.w600,
-                        color: Color(0xFF1A4799),
+                        color: theme.colorScheme.primary, // Use theme color
                       ),
                     ),
                   ],
@@ -104,20 +107,20 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 const SizedBox(height: 16),
                 Row(
                   children: [
-                    const Expanded(
+                    Expanded(
                       child: Text.rich(
                         TextSpan(
                           text: 'من خلال إنشاء حساب فإنك توافق على ',
-                          style: TextStyle(
+                          style: textTheme.bodyMedium?.copyWith(
                             fontSize: 15,
-                            color: Colors.black,
+                            color: theme.colorScheme.onSurface, // Theme color
                           ),
                           children: [
                             TextSpan(
                               text: 'شروطنا وأحكامنا',
-                              style: TextStyle(
+                              style: textTheme.bodyMedium?.copyWith(
                                 fontSize: 15,
-                                color: Color(0xFFF16122),
+                                color: theme.colorScheme.primary, // Theme color
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -127,7 +130,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       ),
                     ),
                     Checkbox(
-                      activeColor: const Color(0xFFF16122),
+                      activeColor: theme.colorScheme.primary, // Theme color
                       value: agreeToTerms,
                       onChanged: (value) {
                         setState(() {
@@ -138,11 +141,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   ],
                 ),
                 if (!agreeToTerms && hasTriedToSubmit)
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 8.0),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: Text(
                       'يجب الموافقة على الشروط والأحكام للاستمرار',
-                      style: TextStyle(color: Colors.red, fontSize: 12),
+                      style: textTheme.bodySmall?.copyWith(
+                        color: theme.colorScheme.error, // Error color
+                        fontSize: 12,
+                      ),
                     ),
                   ),
                 const SizedBox(height: 16),
@@ -157,29 +163,34 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       print('Full Name: ${fullNameController.text}');
                       print('Email: ${emailController.text}');
                       print('Password: ${passwordController.text}');
-                      Navigator.pushNamed(context, '/home');
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, '/home', (Route<dynamic> route) => false);
                     } else if (!agreeToTerms) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('الرجاء الموافقة على الشروط والأحكام'),
+                        SnackBar(
+                          content:
+                              const Text('الرجاء الموافقة على الشروط والأحكام'),
+                          backgroundColor:
+                              theme.colorScheme.error, // Theme color
                         ),
                       );
                     }
                   },
                   style: ElevatedButton.styleFrom(
                     fixedSize: const Size(double.infinity, 44),
-                    backgroundColor: const Color(0xFFE8712B),
+                    backgroundColor: theme.colorScheme.primary, // Theme color
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
                     padding: EdgeInsets.zero,
                   ),
-                  child: const Text(
+                  child: Text(
                     'إنشاء حساب جديد',
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
+                    style: textTheme.bodyMedium?.copyWith(
+                      fontSize: 16,
+                      color: theme.colorScheme.onPrimary, // Theme color
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 Row(
@@ -188,22 +199,22 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     TextButton(
                       onPressed: () {
                         // Navigate to login screen
-                        Navigator.pushNamed(context, '/login');
+                        Navigator.pushReplacementNamed(context, '/login');
                       },
-                      child: const Text(
+                      child: Text(
                         'تسجيل دخول',
-                        style: TextStyle(
+                        style: textTheme.bodyMedium?.copyWith(
                           fontSize: 12,
-                          color: Color(0xFFE8712B), // Orange color for the link
+                          color: theme.colorScheme.primary, // Theme color
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
-                    const Text(
+                    Text(
                       'هل لديك حساب؟',
-                      style: TextStyle(
+                      style: textTheme.bodyMedium?.copyWith(
                         fontSize: 12,
-                        color: Color(0xFF343434), // Default text color
+                        color: theme.colorScheme.onSurface, // Theme color
                       ),
                     ),
                   ],
@@ -235,6 +246,9 @@ class CustomTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context); // Get the current theme
+    final textTheme = theme.textTheme; // Access theme's text styles
+
     return TextFormField(
       controller: controller,
       obscureText: obscureText,
@@ -243,22 +257,22 @@ class CustomTextFormField extends StatelessWidget {
         labelText: labelText,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
-          borderSide: const BorderSide(
-            color: Color(0xFF9B9B9B),
+          borderSide: BorderSide(
+            color: theme.colorScheme.outline, // Theme color
             width: 1,
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
-          borderSide: const BorderSide(
-            color: Color(0xFF9B9B9B),
+          borderSide: BorderSide(
+            color: theme.colorScheme.outline, // Theme color
             width: 1,
           ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
-          borderSide: const BorderSide(
-            color: Color(0xFF1A4799),
+          borderSide: BorderSide(
+            color: theme.colorScheme.primary, // Theme color
             width: 1.5,
           ),
         ),
@@ -267,9 +281,9 @@ class CustomTextFormField extends StatelessWidget {
           horizontal: 16,
         ),
       ),
-      style: const TextStyle(
+      style: textTheme.bodyMedium?.copyWith(
         fontSize: 16,
-        color: Colors.black,
+        color: theme.colorScheme.onSurface, // Theme color
       ),
       validator: validator,
     );

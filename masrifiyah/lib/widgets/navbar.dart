@@ -4,47 +4,28 @@ import 'package:masrifiyah/pages/banks_screen.dart';
 import 'package:masrifiyah/pages/home_screen.dart';
 import 'package:masrifiyah/pages/settings/settings_screen.dart';
 
-void main() {
-  runApp(const NavigationBarApp());
-}
-
-class NavigationBarApp extends StatelessWidget {
+class NavigationBarApp extends StatefulWidget {
   const NavigationBarApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'التنقل السفلي',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        fontFamily: 'Arial', // You can replace it with any preferred font
-      ),
-      home: const BottomNavBar(),
-    );
-  }
+  State<NavigationBarApp> createState() => _NavigationBarAppState();
 }
 
-class BottomNavBar extends StatefulWidget {
-  const BottomNavBar({super.key});
-
-  @override
-  State<BottomNavBar> createState() => _BottomNavBarState();
-}
-
-class _BottomNavBarState extends State<BottomNavBar> {
+class _NavigationBarAppState extends State<NavigationBarApp> {
   int _currentIndex = 0;
 
   // List of pages for the bottom navigation bar
   final List<Widget> _pages = const [
     HomeScreen(),
     BanksScreen(),
-    CalculatorScreen(),
+    AnalyticsScreen(),
     SettingsScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context); // Access current theme
+
     return Scaffold(
       body: _pages[_currentIndex], // Display the current page
       bottomNavigationBar: BottomNavigationBar(
@@ -55,18 +36,21 @@ class _BottomNavBarState extends State<BottomNavBar> {
           });
         },
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.white,
+        backgroundColor: theme.colorScheme.surface, // Dynamic background color
         elevation: 8, // Add slight elevation for a clean look
-        selectedItemColor: const Color(0xFFE8712B), // Highlight color
-        unselectedItemColor: Colors.grey,
+        selectedItemColor: theme.colorScheme.primary, // Dynamic highlight color
+        unselectedItemColor:
+            theme.colorScheme.onSurfaceVariant, // Dynamic unselected color
         showUnselectedLabels: true,
-        selectedLabelStyle: const TextStyle(
+        selectedLabelStyle: TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.bold,
+          color: theme.colorScheme.primary, // Dynamic label color
         ),
-        unselectedLabelStyle: const TextStyle(
+        unselectedLabelStyle: TextStyle(
           fontSize: 12,
           fontWeight: FontWeight.normal,
+          color: theme.colorScheme.onSurfaceVariant, // Dynamic label color
         ),
         items: const [
           BottomNavigationBarItem(
@@ -78,8 +62,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
             label: 'البنوك',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.calculate),
-            label: 'الحاسبة',
+            icon: Icon(Icons.analytics),
+            label: 'التحليلات',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),

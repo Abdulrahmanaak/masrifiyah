@@ -6,6 +6,9 @@ class BanksScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context); // Get the current theme
+    final textTheme = theme.textTheme; // Access theme's text styles
+
     final supportedBanks = [
       {"name": "بنك الرياض", "image": "assets/riyadh.jpg"},
       {"name": "البنك الأهلي", "image": "assets/alahli.png"},
@@ -19,7 +22,8 @@ class BanksScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        automaticallyImplyLeading: false, // Hide the back button
+        backgroundColor: theme.colorScheme.surface, // Use theme surface color
         elevation: 0,
         toolbarHeight: 100,
         title: Padding(
@@ -31,33 +35,41 @@ class BanksScreen extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const NotificationsPage()),
+                    MaterialPageRoute(
+                        builder: (context) => const NotificationsPage()),
                   );
                 },
-                icon: const Icon(Icons.notifications, color: Colors.black),
+                icon: Icon(
+                  Icons.notifications,
+                  color: theme.colorScheme.onSurface, // Icon color
+                ),
               ),
               Row(
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
-                    children: const [
+                    children: [
                       Text(
                         "محمد أحمد",
-                        style: TextStyle(
+                        style: textTheme.bodyLarge?.copyWith(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                          color: theme.colorScheme.onSurface, // Text color
                         ),
                       ),
-                      SizedBox(height: 4),
+                      const SizedBox(height: 4),
                       Text(
-                        "الملف الشخصي",
-                        style: TextStyle(fontSize: 14, color: Colors.black),
+                        "مرحباً بك",
+                        style: textTheme.bodyMedium?.copyWith(
+                          fontSize: 14,
+                          color: theme
+                              .colorScheme.onSurfaceVariant, // Subtitle color
+                        ),
                       ),
                     ],
                   ),
                   const SizedBox(width: 12),
-                  CircleAvatar(
+                  const CircleAvatar(
                     radius: 25,
                     backgroundImage: AssetImage("assets/profile_picture.png"),
                   ),
@@ -67,32 +79,34 @@ class BanksScreen extends StatelessWidget {
           ),
         ),
       ),
-      backgroundColor: Colors.grey[50],
+      backgroundColor: theme.colorScheme.surface, // Background color
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: ListView(
           children: [
             const SizedBox(height: 16),
-            _buildSectionTitle("البنوك المدعومة"),
+            _buildSectionTitle(context, "البنوك المدعومة"),
             const SizedBox(height: 16),
-            _buildBankGrid(supportedBanks),
+            _buildBankGrid(context, supportedBanks),
             const SizedBox(height: 32),
-            _buildSectionTitle("البنوك القادمة"),
+            _buildSectionTitle(context, "البنوك القادمة"),
             const SizedBox(height: 16),
-            _buildBankGrid(upcomingBanks),
+            _buildBankGrid(context, upcomingBanks),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildSectionTitle(String title) {
+  Widget _buildSectionTitle(BuildContext context, String title) {
+    final theme = Theme.of(context); // Get the current theme
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
           child: Divider(
-            color: Color(0xFFE8712B),
+            color: theme.colorScheme.primary, // Divider color
             thickness: 1.5,
           ),
         ),
@@ -100,16 +114,16 @@ class BanksScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Text(
             title,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: theme.colorScheme.onSurface, // Text color
+                ),
           ),
         ),
         Expanded(
           child: Divider(
-            color:Color(0xFFE8712B),
+            color: theme.colorScheme.primary, // Divider color
             thickness: 1.5,
           ),
         ),
@@ -117,7 +131,7 @@ class BanksScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildBankGrid(List<Map<String, String>> banks) {
+  Widget _buildBankGrid(BuildContext context, List<Map<String, String>> banks) {
     return GridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -130,12 +144,14 @@ class BanksScreen extends StatelessWidget {
       itemCount: banks.length,
       itemBuilder: (context, index) {
         final bank = banks[index];
-        return _buildBankCard(bank['name']!, bank['image']!);
+        return _buildBankCard(context, bank['name']!, bank['image']!);
       },
     );
   }
 
-  Widget _buildBankCard(String name, String imagePath) {
+  Widget _buildBankCard(BuildContext context, String name, String imagePath) {
+    final theme = Theme.of(context); // Get the current theme
+
     return Card(
       elevation: 4,
       shape: RoundedRectangleBorder(
@@ -159,10 +175,10 @@ class BanksScreen extends StatelessWidget {
           Text(
             name,
             textAlign: TextAlign.center,
-            style: const TextStyle(
+            style: theme.textTheme.bodyMedium?.copyWith(
               fontSize: 16,
               fontWeight: FontWeight.w500,
-              color: Colors.black,
+              color: theme.colorScheme.onSurface, // Text color
             ),
           ),
         ],

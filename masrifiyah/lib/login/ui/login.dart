@@ -16,6 +16,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context); // Get the current theme
+    final textTheme = theme.textTheme; // Access the theme's text styles
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -28,16 +31,16 @@ class _LoginScreenState extends State<LoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const SizedBox(height: 100),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
                       'مرحبًا بكم',
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: textTheme.bodyLarge?.copyWith(
                         fontSize: 24,
                         fontWeight: FontWeight.w600,
-                        color: Color(0xFF1A4799),
+                        color: theme.colorScheme.primary, // Primary color
                       ),
                     ),
                   ],
@@ -82,23 +85,25 @@ class _LoginScreenState extends State<LoginScreen> {
                       // Handle form submission logic
                       print('Email: ${emailController.text}');
                       print('Password: ${passwordController.text}');
-                      Navigator.pushNamed(context, '/home');
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, '/home', (Route<dynamic> route) => false);
                     }
                   },
                   style: ElevatedButton.styleFrom(
                     fixedSize: const Size(double.infinity, 44),
-                    backgroundColor: const Color(0xFFE8712B),
+                    backgroundColor: theme.colorScheme.primary, // Primary color
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
                     padding: EdgeInsets.zero,
                   ),
-                  child: const Text(
+                  child: Text(
                     'تسجيل الدخول',
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
+                    style: textTheme.bodyMedium?.copyWith(
+                      fontSize: 16,
+                      color: theme.colorScheme.onPrimary, // On primary color
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 Row(
@@ -106,23 +111,22 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     TextButton(
                       onPressed: () {
-                        // Navigate to login screen
-                        Navigator.pushNamed(context, '/register');
+                        Navigator.pushReplacementNamed(context, '/register');
                       },
-                      child: const Text(
+                      child: Text(
                         'إنشاء حساب جديد',
-                        style: TextStyle(
+                        style: textTheme.bodyMedium?.copyWith(
                           fontSize: 12,
-                          color: Color(0xFFE8712B), // Orange color for the link
+                          color: theme.colorScheme.primary, // Primary color
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
-                    const Text(
+                    Text(
                       'ليس لديك حساب',
-                      style: TextStyle(
+                      style: textTheme.bodyMedium?.copyWith(
                         fontSize: 12,
-                        color: Color(0xFF343434), // Default text color
+                        color: theme.colorScheme.onSurface, // On surface color
                       ),
                     ),
                   ],

@@ -10,6 +10,6 @@ final Map<String, Widget Function(BuildContext)> loginRoutes = {
   '/': (_) => const BeginScreen(),
   '/register': (_) => const RegistrationScreen(),
   '/login': (_) => const LoginScreen(),
-  '/home': (_) => const BottomNavBar(),
+  '/home': (_) => const NavigationBarApp(),
   '/support': (_) => const SupportContactScreen(),
 };
