@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:masrifiyah/pages/calculator_screen.dart';
+import 'package:masrifiyah/pages/calculator_screen.dart'; // Assuming LoanCalculatorPage is in this file
 import 'package:masrifiyah/pages/banks_screen.dart';
 import 'package:masrifiyah/pages/home_screen.dart';
 import 'package:masrifiyah/pages/settings/settings_screen.dart';
@@ -15,11 +15,11 @@ class _NavigationBarAppState extends State<NavigationBarApp> {
   int _currentIndex = 0;
 
   // List of pages for the bottom navigation bar
-  final List<Widget> _pages = const [
-    HomeScreen(),
-    BanksScreen(),
-    AnalyticsScreen(),
-    SettingsScreen(),
+  final List<Widget> _pages = [
+    const HomeScreen(),
+    const BanksScreen(),
+    LoanCalculatorPage(), // Replaced AnalyticsScreen with LoanCalculatorPage
+    const SettingsScreen(),
   ];
 
   @override
@@ -62,8 +62,8 @@ class _NavigationBarAppState extends State<NavigationBarApp> {
             label: 'البنوك',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.analytics),
-            label: 'التحليلات',
+            icon: Icon(Icons.calculate), // Updated icon for calculator
+            label: 'الحاسبة', // Updated label to reflect Loan Calculator
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
